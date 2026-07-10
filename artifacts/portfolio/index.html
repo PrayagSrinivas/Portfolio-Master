@@ -1,52 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script>
-      window.addEventListener('error', function(e) {
-        var div = document.getElementById('debug-error-banner');
-        if (!div) {
-          div = document.createElement('div');
-          div.id = 'debug-error-banner';
-          div.style.position = 'fixed';
-          div.style.top = '0';
-          div.style.left = '0';
-          div.style.width = '100%';
-          div.style.background = '#e11d48';
-          div.style.color = 'white';
-          div.style.padding = '16px';
-          div.style.zIndex = '999999';
-          div.style.fontFamily = 'monospace';
-          div.style.fontSize = '12px';
-          div.style.lineHeight = '1.4';
-          div.style.whiteSpace = 'pre-wrap';
-          div.style.boxShadow = '0 10px 15px -3px rgba(0,0,0,0.3)';
-          document.body.appendChild(div);
-        }
-        div.innerText = 'JS Error: ' + e.message + '\nFile: ' + e.filename + ':' + e.lineno + '\nStack: ' + (e.error ? e.error.stack : 'N/A');
-      });
-      window.addEventListener('unhandledrejection', function(e) {
-        var div = document.getElementById('debug-error-banner');
-        if (!div) {
-          div = document.createElement('div');
-          div.id = 'debug-error-banner';
-          div.style.position = 'fixed';
-          div.style.top = '0';
-          div.style.left = '0';
-          div.style.width = '100%';
-          div.style.background = '#be123c';
-          div.style.color = 'white';
-          div.style.padding = '16px';
-          div.style.zIndex = '999999';
-          div.style.fontFamily = 'monospace';
-          div.style.fontSize = '12px';
-          div.style.lineHeight = '1.4';
-          div.style.whiteSpace = 'pre-wrap';
-          div.style.boxShadow = '0 10px 15px -3px rgba(0,0,0,0.3)';
-          document.body.appendChild(div);
-        }
-        div.innerText = 'Promise Rejection: ' + e.reason + '\nStack: ' + (e.reason && e.reason.stack ? e.reason.stack : 'N/A');
-      });
-    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>Prayag Srinivas | iOS Developer</title>
