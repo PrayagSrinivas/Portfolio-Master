@@ -48,7 +48,8 @@ export function Experience() {
       <div className="container mx-auto px-6 max-w-4xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center">Professional Experience</h2>
         
-        <div className="relative border-l border-border ml-4 md:ml-0 md:pl-0 pl-8 space-y-16">
+        {/* Timeline container - kept padded on desktop to prevent collisions */}
+        <div className="relative border-l border-border ml-4 md:ml-6 pl-8 space-y-16">
           {experiences.map((exp, index) => (
             <motion.div 
               key={index}
@@ -56,19 +57,21 @@ export function Experience() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative"
+              className="relative group cursor-default"
             >
-              {/* Timeline dot */}
-              <div className="absolute w-3 h-3 bg-background border-2 border-primary rotate-45 -left-[38px] md:-left-[6px] top-2 z-10" />
+              {/* Timeline diamond dot with hover rotate & glow micro-animation */}
+              <div className="absolute w-3 h-3 bg-background border-2 border-primary rotate-45 -left-[38px] top-2.5 z-10 group-hover:rotate-[135deg] group-hover:bg-primary group-hover:border-primary group-hover:shadow-[0_0_12px_rgba(240,81,56,0.6)] transition-all duration-500 ease-out" />
               
               <div className="md:grid md:grid-cols-4 md:gap-8">
-                <div className="md:col-span-1 mb-4 md:mb-0 md:text-right md:pr-8">
-                  <div className="font-mono text-sm text-primary mb-1">{exp.period}</div>
+                {/* Duration Column - Left aligned on desktop with hover shift */}
+                <div className="md:col-span-1 mb-4 md:mb-0 transition-transform duration-300 ease-out group-hover:translate-x-1">
+                  <div className="font-mono text-sm text-primary mb-1 group-hover:text-primary/80 transition-colors duration-300">{exp.period}</div>
                   <div className="text-xs text-muted-foreground uppercase tracking-widest">{exp.location}</div>
                 </div>
                 
-                <div className="md:col-span-3">
-                  <h3 className="text-xl font-bold mb-1">{exp.role}</h3>
+                {/* Description Column - Hover shift & color light-up */}
+                <div className="md:col-span-3 transition-transform duration-300 ease-out group-hover:translate-x-1">
+                  <h3 className="text-xl font-bold mb-1 group-hover:text-primary transition-colors duration-300">{exp.role}</h3>
                   <div className="text-muted-foreground font-mono text-sm mb-6">{exp.company}</div>
                   
                   <ul className="space-y-3">
