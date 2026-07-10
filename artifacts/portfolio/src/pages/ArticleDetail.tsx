@@ -32,7 +32,8 @@ const portableTextComponents = {
   },
   block: {
     h2: ({ children }: any) => <h2 className="text-2xl font-bold tracking-tight mt-10 mb-4">{children}</h2>,
-    h3: ({ children }: any) => <h3 className="text-xl font-bold tracking-tight mt-8 mb-3">{children}</h3>,
+    h3: ({ children }: any) => <h3 className="text-xl font-semibold tracking-tight mt-8 mb-3">{children}</h3>,
+    h4: ({ children }: any) => <h4 className="text-lg font-medium text-foreground/90 mt-6 mb-2">{children}</h4>,
     normal: ({ children }: any) => <p className="leading-relaxed mb-6 text-foreground/85">{children}</p>,
     blockquote: ({ children }: any) => (
       <blockquote className="border-l-4 border-primary pl-4 italic my-6 text-muted-foreground">
