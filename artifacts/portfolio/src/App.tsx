@@ -1,3 +1,4 @@
+import React, { Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -8,6 +9,8 @@ import Home from './pages/Home';
 import Resume from './pages/Resume';
 import ArticleDetail from './pages/ArticleDetail';
 
+const StudioPage = React.lazy(() => import('./pages/StudioPage'));
+
 const queryClient = new QueryClient();
 
 function Router() {
@@ -16,6 +19,11 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/resume" component={Resume} />
       <Route path="/articles/:slug" component={ArticleDetail} />
+      <Route path="/studio*">
+        <Suspense fallback={<div className="h-screen w-screen flex items-center justify-center font-mono text-sm bg-background text-foreground">Loading Studio...</div>}>
+          <StudioPage />
+        </Suspense>
+      </Route>
       <Route component={NotFound} />
     </Switch>
   );
