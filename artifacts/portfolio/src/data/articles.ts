@@ -1,0 +1,75 @@
+export interface Article {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  readTime: string;
+  content: string; // Markdown / HTML content
+}
+
+export const articles: Article[] = [
+  {
+    slug: "mastering-swift-concurrency",
+    title: "Mastering Swift Concurrency",
+    excerpt: "A deep dive into migrating legacy GCD codebases to async/await, handling data races, and leveraging actors for safe state management in production apps.",
+    date: "Oct 2023",
+    readTime: "8 min read",
+    content: `
+      <p>Swift Concurrency (introduced in Swift 5.5) represents a paradigm shift in how we write asynchronous and concurrent code on Apple platforms. For years, iOS developers relied on Grand Central Dispatch (GCD) and completion handlers. While powerful, GCD-based codebases often suffered from "pyramids of doom," memory leaks due to retain cycles, and hard-to-debug data races.</p>
+      
+      <h3>The Problem with GCD</h3>
+      <p>Completion handlers are not enforced by the compiler. If a developer forgets to call the completion block in an error path, the application might hang. Additionally, thread-safety was entirely manual—requiring serial queues or locks to protect shared state.</p>
+
+      <h3>Enter Async/Await</h3>
+      <p>Async/await changes this by making asynchronous code read sequentially. Functions are marked as <code>async</code> and paused using <code>await</code>, freeing up the underlying system thread to do other work while waiting for resources.</p>
+
+      <pre><code>func fetchUserStats() async throws -> UserStats {
+    let rawData = try await networkClient.fetchData(from: .stats)
+    return try JSONDecoder().decode(UserStats.self, from: rawData)
+}</code></pre>
+
+      <h3>Actors and Data Race Safety</h3>
+      <p>The crown jewel of Swift Concurrency is the <strong>Actor model</strong>. Actors are reference types (like classes) that isolate their state and only allow access through asynchronous messages. This guarantees at compile-time that no two threads can access or mutate the actor's state simultaneously, eliminating data races entirely.</p>
+      
+      <pre><code>actor AccountManager {
+    private var balance: Double = 0.0
+    
+    func deposit(amount: Double) {
+        balance += amount
+    }
+}</code></pre>
+
+      <p>Migrating to Swift Concurrency requires shifting your mindset from dispatching blocks on threads to structuring tasks and isolating state with actors. In the long run, this results in cleaner, safer, and much more performant iOS applications.</p>
+    `
+  },
+  {
+    slug: "building-modular-ios-architectures",
+    title: "Building Modular iOS Architectures",
+    excerpt: "How to break down monolithic applications into independent, reusable modules. Lessons learned from scaling enterprise HRMS platforms.",
+    date: "Aug 2023",
+    readTime: "12 min read",
+    content: `
+      <p>As iOS projects grow, build times increase, code conflicts multiply, and maintaining a clean division of concerns becomes nearly impossible. Modularity is the art of breaking down a monolithic codebase into decoupled, self-contained packages or frameworks.</p>
+
+      <h3>Benefits of Modular Architecture</h3>
+      <ul>
+        <li><strong>Faster Build Times:</strong> Xcode can cache compiled modules and only rebuild what changed.</li>
+        <li><strong>Decoupled Features:</strong> Teams can work independently on separate modules without merging conflicts.</li>
+        <li><strong>Reusability:</strong> Common UI or networking components can be easily shared between the main app, extensions, or watchOS targets.</li>
+      </ul>
+
+      <h3>Structure of a Modular App</h3>
+      <p>A typical modular architecture contains three layers:</p>
+      <ol>
+        <li><strong>App Layer:</strong> The main coordinator that imports features and hooks them up together.</li>
+        <li><strong>Feature Layer:</strong> Independent feature modules (e.g., <code>ProfileFeature</code>, <code>PaymentFeature</code>) that do not know about each other.</li>
+        <li><strong>Core Layer:</strong> Low-level shared engines (e.g., <code>Networking</code>, <code>Database</code>, <code>DesignSystem</code>).</li>
+      </ol>
+
+      <h3>Handling Dependency Injection</h3>
+      <p>To keep feature modules completely independent, they should never import other features directly. Instead, they should define protocol interfaces, and the main app coordinate dependencies at runtime using coordinator patterns and Dependency Injection containers.</p>
+
+      <p>Investing in a modular architecture early on requires setting up Xcode local packages or using Tuist. However, as your team scales past 3-4 developers, it becomes an absolute necessity for productivity and sanity.</p>
+    `
+  }
+];
