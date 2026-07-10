@@ -89,11 +89,11 @@ export function Navbar() {
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: '100vh' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-panel-darker border-b border-border absolute top-full left-0 right-0 overflow-hidden"
+            className="md:hidden bg-background/80 backdrop-blur-xl border-b border-border absolute top-full left-0 right-0 overflow-hidden shadow-lg"
           >
-            <nav className="flex flex-col py-4 px-6 gap-4">
+            <nav className="flex flex-col py-4 px-6 gap-4 h-full">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
