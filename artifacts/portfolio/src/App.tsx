@@ -24,7 +24,7 @@ function Router() {
           <StudioPage />
         </Suspense>
       </Route>
-      <Route path="/studio/:*">
+      <Route path="/studio/:path*">
         <Suspense fallback={<div className="h-screen w-screen flex items-center justify-center font-mono text-sm bg-background text-foreground">Loading Studio...</div>}>
           <StudioPage />
         </Suspense>
