@@ -19,7 +19,12 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/resume" component={Resume} />
       <Route path="/articles/:slug" component={ArticleDetail} />
-      <Route path="/studio*">
+      <Route path="/studio">
+        <Suspense fallback={<div className="h-screen w-screen flex items-center justify-center font-mono text-sm bg-background text-foreground">Loading Studio...</div>}>
+          <StudioPage />
+        </Suspense>
+      </Route>
+      <Route path="/studio/:*">
         <Suspense fallback={<div className="h-screen w-screen flex items-center justify-center font-mono text-sm bg-background text-foreground">Loading Studio...</div>}>
           <StudioPage />
         </Suspense>
