@@ -63,12 +63,12 @@ export function Hero() {
             
             {/* Center Core: Apple Developer Logo */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-28 h-28 rounded-3xl bg-muted/10 border border-border/60 flex items-center justify-center backdrop-blur-md shadow-2xl relative overflow-hidden group">
+              <div className="w-36 h-36 rounded-[2rem] bg-muted/10 border border-border/60 flex items-center justify-center backdrop-blur-md shadow-2xl relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/15 to-transparent opacity-60 group-hover:opacity-100 transition-opacity" />
                 <img 
                   src="https://www.vectorlogo.zone/logos/apple/apple-icon.svg" 
                   alt="Apple Logo"
-                  className="w-12 h-12 brightness-0 invert opacity-90 transition-transform duration-500 group-hover:scale-105"
+                  className="w-16 h-16 dark:invert opacity-90 transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
             </div>
@@ -77,7 +77,7 @@ export function Hero() {
             <motion.div 
               animate={{ y: [0, -16, 0], x: [0, 8, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-6 left-6 w-14 h-14 rounded-2xl overflow-hidden shadow-lg shadow-red-500/10 border border-white/10 group cursor-pointer"
+              className="absolute top-4 left-4 w-18 h-18 rounded-[1.25rem] overflow-hidden shadow-lg shadow-red-500/10 border border-white/10 group cursor-pointer"
             >
               <img 
                 src="https://www.vectorlogo.zone/logos/swift/swift-icon.svg" 
@@ -90,12 +90,12 @@ export function Hero() {
             <motion.div 
               animate={{ y: [0, 14, 0], x: [0, -10, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              className="absolute top-10 right-10 w-14 h-14 rounded-2xl bg-muted/10 border border-[#007AFF]/30 flex items-center justify-center backdrop-blur-md shadow-lg group cursor-pointer"
+              className="absolute top-8 right-8 w-18 h-18 rounded-[1.25rem] bg-muted/10 border border-[#007AFF]/30 flex items-center justify-center backdrop-blur-md shadow-lg group cursor-pointer"
             >
               <img 
                 src="https://img.icons8.com/color/512/swiftui.png" 
                 alt="SwiftUI Framework"
-                className="w-9 h-9 transition-transform duration-300 group-hover:scale-110"
+                className="w-12 h-12 transition-transform duration-300 group-hover:scale-110"
               />
             </motion.div>
 
@@ -103,7 +103,7 @@ export function Hero() {
             <motion.div 
               animate={{ y: [0, -12, 0], x: [0, -8, 0] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute top-1/2 -translate-y-1/2 -right-6 w-14 h-14 rounded-2xl overflow-hidden shadow-lg shadow-blue-500/10 border border-white/10 group cursor-pointer"
+              className="absolute top-1/2 -translate-y-1/2 -right-8 w-18 h-18 rounded-[1.25rem] overflow-hidden shadow-lg shadow-blue-500/10 border border-white/10 group cursor-pointer"
             >
               <img 
                 src="https://www.vectorlogo.zone/logos/apple_appstore/apple_appstore-icon.svg" 
@@ -116,7 +116,7 @@ export function Hero() {
             <motion.div 
               animate={{ y: [0, 16, 0], x: [0, 8, 0] }}
               transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-              className="absolute bottom-8 right-8 w-14 h-14 rounded-2xl overflow-hidden bg-muted/10 border border-[#00C7FC]/30 flex items-center justify-center backdrop-blur-md shadow-lg group cursor-pointer"
+              className="absolute bottom-6 right-6 w-18 h-18 rounded-[1.25rem] overflow-hidden bg-muted/10 border border-[#00C7FC]/30 flex items-center justify-center backdrop-blur-md shadow-lg group cursor-pointer"
             >
               <img 
                 src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/dd/85/68/dd856873-5ed1-e70e-750a-b826aaa80c64/AppIcon-0-1x_U007epad-0-1-0-P3-85-220-0.png/512x512bb.jpg" 
@@ -129,12 +129,12 @@ export function Hero() {
             <motion.div 
               animate={{ y: [0, -10, 0], x: [0, -12, 0] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-              className="absolute bottom-10 left-6 w-14 h-14 rounded-2xl bg-muted/10 border border-[#AF52DE]/30 flex items-center justify-center backdrop-blur-md shadow-lg group cursor-pointer"
+              className="absolute bottom-8 left-4 w-18 h-18 rounded-[1.25rem] bg-muted/10 border border-[#AF52DE]/30 flex items-center justify-center backdrop-blur-md shadow-lg group cursor-pointer"
             >
               <img 
                 src="https://img.icons8.com/color/512/database.png" 
                 alt="CoreData & SwiftData Database"
-                className="w-8 h-8 transition-transform duration-300 group-hover:scale-110"
+                className="w-10 h-10 transition-transform duration-300 group-hover:scale-110"
               />
             </motion.div>
 
@@ -142,12 +142,12 @@ export function Hero() {
             <motion.div 
               animate={{ y: [0, 10, 0], x: [0, 10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
-              className="absolute top-1/2 -translate-y-1/2 -left-6 w-14 h-14 rounded-2xl bg-muted/10 border border-border/50 flex items-center justify-center backdrop-blur-md shadow-lg group cursor-pointer"
+              className="absolute top-1/2 -translate-y-1/2 -left-8 w-18 h-18 rounded-[1.25rem] bg-muted/10 border border-border/50 flex items-center justify-center backdrop-blur-md shadow-lg group cursor-pointer"
             >
               <img 
                 src="https://www.vectorlogo.zone/logos/github/github-icon.svg" 
                 alt="GitHub Version Control"
-                className="w-8 h-8 brightness-0 invert opacity-90 transition-transform duration-300 group-hover:scale-110"
+                className="w-10 h-10 dark:invert opacity-90 transition-transform duration-300 group-hover:scale-110"
               />
             </motion.div>
           </div>

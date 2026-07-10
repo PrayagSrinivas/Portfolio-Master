@@ -86,12 +86,16 @@ export function Navbar() {
       )}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="group flex items-center gap-2">
-          <div className="w-8 h-8 bg-foreground flex items-center justify-center group-hover:bg-primary transition-colors text-background group-hover:text-foreground p-1.5 rounded-sm">
-            <SwiftIcon className="w-full h-full" />
+        <Link href="/" className="group flex items-center gap-3">
+          <div className="w-9 h-9 rounded-full overflow-hidden border border-border/50 group-hover:border-primary/50 transition-all duration-300">
+            <img 
+              src="/profile.jpg" 
+              alt="Srinivas Prayag Sahu" 
+              className="w-full h-full object-cover object-center scale-105 group-hover:scale-110 transition-transform duration-300"
+            />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold text-sm tracking-tight leading-none uppercase">Srinivas Prayag Sahu</span>
+            <span className="font-bold text-sm tracking-tight leading-none uppercase group-hover:text-primary transition-colors duration-300">Srinivas Prayag Sahu</span>
             <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest mt-1">iOS Developer</span>
           </div>
         </Link>
