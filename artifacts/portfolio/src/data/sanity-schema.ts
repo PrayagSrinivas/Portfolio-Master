@@ -84,5 +84,25 @@ export const postType = defineType({
       ],
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: 'seoTitle',
+      title: 'SEO Title',
+      type: 'string',
+      description: 'Optional: Overrides the post title for browser tabs and search engines (recommended max 60 chars).',
+      validation: (Rule) => Rule.max(60),
+    }),
+    defineField({
+      name: 'seoDescription',
+      title: 'SEO Description',
+      type: 'text',
+      description: 'Optional: Overrides the description/excerpt shown in search results (recommended max 155 chars).',
+      validation: (Rule) => Rule.max(155),
+    }),
+    defineField({
+      name: 'seoKeywords',
+      title: 'SEO Keywords',
+      type: 'string',
+      description: 'Optional: Comma-separated list of keywords for search engines.',
+    }),
   ],
 });

@@ -74,6 +74,58 @@ export default function ArticleDetail({ params }: ArticleDetailProps) {
     window.scrollTo(0, 0);
   }, [params.slug]);
 
+  // Update dynamic SEO metadata in head
+  useEffect(() => {
+    if (!article) return;
+
+    // Store original document values
+    const originalTitle = document.title;
+    const originalDescMeta = document.querySelector('meta[name="description"]');
+    const originalDesc = originalDescMeta?.getAttribute('content') || '';
+    const originalKeywordsMeta = document.querySelector('meta[name="keywords"]');
+    const originalKeywords = originalKeywordsMeta?.getAttribute('content') || '';
+
+    // 1. Update Title: prioritize seoTitle, fallback to post title
+    document.title = article.seoTitle || article.title;
+
+    // 2. Update Description Meta Tag
+    let descMeta = originalDescMeta;
+    if (!descMeta) {
+      descMeta = document.createElement('meta');
+      descMeta.setAttribute('name', 'description');
+      document.head.appendChild(descMeta);
+    }
+    descMeta.setAttribute('content', article.seoDescription || article.excerpt || '');
+
+    // 3. Update Keywords Meta Tag
+    let keywordsMeta = originalKeywordsMeta;
+    if (article.seoKeywords) {
+      if (!keywordsMeta) {
+        keywordsMeta = document.createElement('meta');
+        keywordsMeta.setAttribute('name', 'keywords');
+        document.head.appendChild(keywordsMeta);
+      }
+      keywordsMeta.setAttribute('content', article.seoKeywords);
+    }
+
+    // Clean up to restore original head tags when page unmounts/changes
+    return () => {
+      document.title = originalTitle;
+      if (originalDescMeta) {
+        originalDescMeta.setAttribute('content', originalDesc);
+      } else if (descMeta && descMeta.parentNode) {
+        descMeta.parentNode.removeChild(descMeta);
+      }
+      if (keywordsMeta) {
+        if (originalKeywords) {
+          keywordsMeta.setAttribute('content', originalKeywords);
+        } else if (keywordsMeta.parentNode) {
+          keywordsMeta.parentNode.removeChild(keywordsMeta);
+        }
+      }
+    };
+  }, [article]);
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Navbar />

@@ -22,6 +22,9 @@ export interface SanityPost {
   readTime: string;
   mainImage?: any;
   body: any[];
+  seoTitle?: string;
+  seoDescription?: string;
+  seoKeywords?: string;
 }
 
 export async function getPosts(): Promise<SanityPost[]> {
@@ -33,7 +36,10 @@ export async function getPosts(): Promise<SanityPost[]> {
       publishedAt,
       readTime,
       mainImage,
-      body
+      body,
+      seoTitle,
+      seoDescription,
+      seoKeywords
     }`
   );
 }
@@ -47,7 +53,10 @@ export async function getPostBySlug(slug: string): Promise<SanityPost | null> {
       publishedAt,
       readTime,
       mainImage,
-      body
+      body,
+      seoTitle,
+      seoDescription,
+      seoKeywords
     }`,
     { slug }
   );
