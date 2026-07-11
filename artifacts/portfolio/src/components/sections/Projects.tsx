@@ -58,13 +58,13 @@ export function Projects() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group relative flex flex-col sm:flex-row gap-8 items-start"
             >
-              {/* iPhone Mockup Frame */}
+              {/* iPhone Mockup Frame (Hidden on Mobile) */}
               {project.link ? (
                 <a 
                   href={project.link}
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="w-full sm:w-48 flex-shrink-0 aspect-[9/19] border-2 border-border rounded-3xl relative overflow-hidden bg-background/50 flex flex-col p-2 pt-6 items-center hover:border-primary/50 transition-colors duration-500 group/phone cursor-pointer"
+                  className="hidden sm:flex sm:w-48 flex-shrink-0 aspect-[9/19] border-2 border-border rounded-3xl relative overflow-hidden bg-background/50 flex-col p-2 pt-6 items-center hover:border-primary/50 transition-colors duration-500 group/phone cursor-pointer"
                 >
                   <div className="absolute top-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-border rounded-full" />
                   <div className="w-full h-full border border-border/50 rounded-xl bg-muted/10 relative overflow-hidden flex flex-col items-center justify-center group-hover/phone:bg-primary/5 transition-colors duration-500">
@@ -85,7 +85,7 @@ export function Projects() {
                   </div>
                 </a>
               ) : (
-                <div className="w-full sm:w-48 flex-shrink-0 aspect-[9/19] border-2 border-border rounded-3xl relative overflow-hidden bg-background/50 flex flex-col p-2 pt-6 items-center">
+                <div className="hidden sm:flex sm:w-48 flex-shrink-0 aspect-[9/19] border-2 border-border rounded-3xl relative overflow-hidden bg-background/50 flex-col p-2 pt-6 items-center">
                   <div className="absolute top-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-border rounded-full" />
                   <div className="w-full h-full border border-border/50 rounded-xl bg-muted/10 relative overflow-hidden flex flex-col items-center justify-center">
                     <Smartphone className="w-12 h-12 text-muted-foreground/30 mb-3" />
@@ -99,30 +99,74 @@ export function Projects() {
                 </div>
               )}
 
-              <div className="flex flex-col flex-grow pt-4">
-                <div className="flex items-center gap-3 mb-2">
-                  {project.link ? (
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="hover:text-primary transition-colors flex items-center gap-1.5 group/title"
-                    >
-                      <h3 className="text-2xl font-bold">{project.title}</h3>
-                      <ArrowUpRight size={18} className="text-muted-foreground group-hover/title:text-primary group-hover/title:translate-x-0.5 group-hover/title:-translate-y-0.5 transition-all" />
-                    </a>
+              <div className="flex flex-col flex-grow w-full">
+                {/* Mobile Header (App Icon + Title/Subtitle side-by-side, hidden on Desktop) */}
+                <div className="flex sm:hidden items-center gap-4 mb-4">
+                  {project.iconUrl ? (
+                    <img 
+                      src={project.iconUrl} 
+                      alt={project.title}
+                      className="w-14 h-14 rounded-2xl shadow-md border border-white/10"
+                    />
                   ) : (
-                    <h3 className="text-2xl font-bold">{project.title}</h3>
+                    <div className="w-14 h-14 rounded-2xl border border-border/50 bg-muted/10 flex items-center justify-center">
+                      <Smartphone className="w-6 h-6 text-muted-foreground/50" />
+                    </div>
                   )}
-                  {project.featured && (
-                    <span className="text-[10px] font-mono text-primary uppercase tracking-widest px-2 py-0.5 border border-primary/30">
-                      Featured
-                    </span>
-                  )}
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {project.link ? (
+                        <a 
+                          href={project.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="hover:text-primary transition-colors flex items-center gap-1 group/title"
+                        >
+                          <h3 className="text-xl font-bold">{project.title}</h3>
+                          <ArrowUpRight size={16} className="text-muted-foreground group-hover/title:text-primary group-hover/title:translate-x-0.5 group-hover/title:-translate-y-0.5 transition-all" />
+                        </a>
+                      ) : (
+                        <h3 className="text-xl font-bold">{project.title}</h3>
+                      )}
+                      {project.featured && (
+                        <span className="text-[9px] font-mono text-primary uppercase tracking-widest px-1.5 py-0.5 border border-primary/30">
+                          Featured
+                        </span>
+                      )}
+                    </div>
+                    <div className="font-mono text-xs text-muted-foreground mt-0.5">
+                      {project.subtitle}
+                    </div>
+                  </div>
                 </div>
-                <div className="font-mono text-sm text-muted-foreground mb-4">
-                  {project.subtitle}
+
+                {/* Desktop Header (Title/Subtitle normal, hidden on Mobile) */}
+                <div className="hidden sm:flex flex-col mb-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    {project.link ? (
+                      <a 
+                        href={project.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="hover:text-primary transition-colors flex items-center gap-1.5 group/title"
+                      >
+                        <h3 className="text-2xl font-bold">{project.title}</h3>
+                        <ArrowUpRight size={18} className="text-muted-foreground group-hover/title:text-primary group-hover/title:translate-x-0.5 group-hover/title:-translate-y-0.5 transition-all" />
+                      </a>
+                    ) : (
+                      <h3 className="text-2xl font-bold">{project.title}</h3>
+                    )}
+                    {project.featured && (
+                      <span className="text-[10px] font-mono text-primary uppercase tracking-widest px-2 py-0.5 border border-primary/30">
+                        Featured
+                      </span>
+                    )}
+                  </div>
+                  <div className="font-mono text-sm text-muted-foreground">
+                    {project.subtitle}
+                  </div>
                 </div>
+
                 <p className="text-foreground/80 text-sm leading-relaxed mb-6">
                   {project.description}
                 </p>
