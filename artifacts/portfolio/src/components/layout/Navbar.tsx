@@ -8,7 +8,7 @@ import { useTheme } from 'next-themes';
 const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Articles', href: '#articles' },
+  { label: 'Articles', href: '/articles' },
   { label: 'Resume', href: '/resume' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -74,6 +74,8 @@ export function Navbar() {
       }
       setMobileMenuOpen(false);
     } else {
+      e.preventDefault();
+      setLocation(href);
       setMobileMenuOpen(false);
     }
   };

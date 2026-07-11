@@ -19,15 +19,25 @@ export function Articles() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Articles & Insights</h2>
             <p className="text-muted-foreground">Thoughts on iOS engineering, architecture, and performance.</p>
           </div>
-          <a 
-            href="https://srinivasprayag.medium.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="group flex items-center gap-2 font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
-            Visit Medium Blog
-            <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-          </a>
+          <div className="flex flex-wrap gap-4 sm:gap-6 items-center">
+            <Link 
+              href="/articles" 
+              className="group flex items-center gap-1.5 font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              View All Articles
+              <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </Link>
+            <span className="hidden sm:inline text-muted-foreground/30 font-mono text-sm">/</span>
+            <a 
+              href="https://srinivasprayag.medium.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group flex items-center gap-1.5 font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              Visit Medium Blog
+              <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </div>
         </div>
 
         {isLoading ? (
