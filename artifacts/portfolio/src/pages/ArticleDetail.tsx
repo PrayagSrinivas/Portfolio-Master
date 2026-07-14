@@ -324,11 +324,7 @@ export default function ArticleDetail({ params }: ArticleDetailProps) {
               </div>
 
               {/* Clap widget section */}
-              <div className="relative flex flex-col items-center justify-center my-16 py-8 border-t border-b border-border/20">
-                <p className="text-xs font-mono text-muted-foreground mb-4">
-                  Liked this article? Clap to show your support.
-                </p>
-                
+              <div className="relative flex flex-row items-center justify-start my-12 py-6 border-t border-b border-zinc-200/50 dark:border-zinc-800/50 gap-4">
                 <div className="relative">
                   {/* Floating Bubbles */}
                   <AnimatePresence>
@@ -336,10 +332,10 @@ export default function ArticleDetail({ params }: ArticleDetailProps) {
                       <motion.div
                         key={fc.id}
                         initial={{ opacity: 1, y: 0, scale: 0.8 }}
-                        animate={{ opacity: 0, y: -80, scale: 1.2 }}
+                        animate={{ opacity: 0, y: -45, scale: 1.2 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="absolute -top-12 left-1/2 -translate-x-1/2 bg-primary text-background font-mono text-xs font-bold px-2.5 py-1 rounded-full shadow-lg pointer-events-none z-50"
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        className="absolute -top-10 left-1/2 -translate-x-1/2 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-mono text-[10px] font-bold px-2 py-0.5 rounded-full shadow-md pointer-events-none z-50"
                       >
                         +1
                       </motion.div>
@@ -351,42 +347,39 @@ export default function ArticleDetail({ params }: ArticleDetailProps) {
                     whileTap={{ scale: 0.95 }}
                     onClick={handleClapClick}
                     disabled={localUserClaps >= 50}
-                    className={`w-16 h-16 rounded-full border flex items-center justify-center shadow-md transition-colors ${
+                    className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
                       localUserClaps >= 50 
-                        ? 'bg-muted/10 border-border/30 text-muted-foreground cursor-not-allowed' 
+                        ? 'bg-zinc-100/50 border-zinc-200 text-zinc-400 dark:bg-zinc-800/20 dark:border-zinc-800 dark:text-zinc-500 cursor-not-allowed' 
                         : localUserClaps > 0
-                          ? 'bg-primary border-primary text-background hover:bg-primary/90'
-                          : 'bg-background border-border hover:border-primary text-foreground'
+                          ? 'bg-zinc-900 border-zinc-900 text-white dark:bg-zinc-100 dark:border-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200'
+                          : 'bg-transparent border-zinc-200 dark:border-zinc-800 hover:border-zinc-900 dark:hover:border-zinc-100 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100'
                     }`}
                   >
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 
-                      viewBox="0 0 24 24" 
-                      fill={localUserClaps > 0 ? "currentColor" : "none"} 
-                      stroke="currentColor" 
-                      strokeWidth="1.5" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      className="w-6 h-6 transition-all duration-300"
+                      viewBox="0 0 256 256" 
+                      fill="currentColor"
+                      className="w-5 h-5 transition-all duration-300"
                     >
-                      <path d="M12 2a4 4 0 0 0-4 4v6.5a1.5 1.5 0 0 0 3 0V6a1 1 0 0 1 2 0v7.5a1.5 1.5 0 0 0 3 0V9a3 3 0 0 0-6 0v4" />
-                      <path d="M8 12.5a3 3 0 0 0-3 3v2.5a4 4 0 0 0 4 4h4a7 7 0 0 0 7-7v-1.5" />
-                      {localUserClaps > 0 && (
-                        <path d="M2 10s2-1 2-3M6 5s1-2 3-2M18 3s2 1 3 2M22 10s-2-1-3-3" className="text-primary animate-pulse" />
-                      )}
+                      <path d="M168,24V8a8,8,0,0,1,16,0V24a8,8,0,0,1-16,0ZM203.83,41A7.9,7.9,0,0,0,208,42.13a8,8,0,0,0,6.84-3.83l8-13.11a8,8,0,1,0-13.66-8.33l-8,13.1A8,8,0,0,0,203.83,41Zm47.44,12.59a8,8,0,0,0-10.07-5.16l-15,4.85a8,8,0,0,0,2.45,15.62,8.15,8.15,0,0,0,2.46-.39l15-4.85A8,8,0,0,0,251.27,53.55Zm-30,39.94A79.71,79.71,0,0,1,208.68,190,80,80,0,0,1,62.49,208l-35-60.63A26,26,0,0,1,46.67,108.6l-4-6.94A26,26,0,0,1,61,63,26,26,0,0,1,72.4,31.63a26.05,26.05,0,0,1,30.81,3.58A26,26,0,0,1,147.09,37l12,20.79a26,26,0,0,1,43.18,2.78ZM115.92,55h0l5.93,10.27a25.87,25.87,0,0,1,5,6.24l12,20.75a26.2,26.2,0,0,1,16-9.78L133.24,45a10,10,0,0,0-13.66-3.66A10,10,0,0,0,115.92,55ZM76.74,59.15l5.93,10.28.32.29A25.93,25.93,0,0,1,99.71,58.94l-5.65-9.79a10,10,0,0,0-18.32,2.41A9.92,9.92,0,0,0,76.74,59.15ZM193.59,184.57a63.61,63.61,0,0,0-6.4-48.57l-19-32.91a10,10,0,0,0-17.74,9.18L161.87,132A8,8,0,1,1,148,140L113,79.53A10,10,0,0,0,95.63,89.4L120.26,132a8,8,0,1,1-13.85,8L73.84,83.66a10,10,0,1,0-17.32,10l36,62.36a8,8,0,1,1-13.86,8l-20-34.64a10,10,0,0,0-17.32,10l35,60.63a64,64,0,0,0,117.25-15.44Zm13.82-83.08-19-32.91a10,10,0,0,0-17.32,10h0L177,88.83a26.06,26.06,0,0,1,5,6.26l19,32.91a80.13,80.13,0,0,1,10.13,30A63.82,63.82,0,0,0,207.41,101.49Z" />
                     </svg>
                   </motion.button>
                 </div>
 
-                <div className="mt-3 text-center">
-                  <span className="font-mono text-sm font-bold block text-foreground">
-                    {clapsLoading ? '...' : `${clapsData?.count ?? 0} claps`}
-                  </span>
-                  {localUserClaps > 0 && (
-                    <span className="font-mono text-[10px] text-muted-foreground mt-0.5 block">
-                      You clapped {localUserClaps} {localUserClaps === 50 && "(Limit reached)"}
+                <div className="flex flex-col text-left">
+                  <p className="text-sm font-medium text-foreground">
+                    Did you love the post? Give it a clap.
+                  </p>
+                  <div className="flex items-center gap-2 mt-0.5 text-xs text-muted-foreground select-none">
+                    <span className="font-semibold text-foreground">
+                      {clapsLoading ? '...' : `${clapsData?.count ?? 0} claps`}
                     </span>
-                  )}
+                    {localUserClaps > 0 && (
+                      <span>
+                        • You clapped {localUserClaps} {localUserClaps === 50 ? "(Limit reached)" : "times"}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             </article>
