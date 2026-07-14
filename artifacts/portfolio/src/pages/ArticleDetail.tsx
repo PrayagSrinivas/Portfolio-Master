@@ -28,18 +28,9 @@ interface ArticleDetailProps {
 }
 
 const CodeBlock = ({ value }: { value: any }) => {
-  const [copied, setCopied] = React.useState(false);
-
   if (!value) return null;
   const codeText = value.code || '';
   const language = value.language || 'swift';
-  const filename = value.filename;
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(codeText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   let highlightedCode = codeText;
   try {
@@ -50,39 +41,8 @@ const CodeBlock = ({ value }: { value: any }) => {
   }
 
   return (
-    <div className="relative my-8 rounded-xl overflow-hidden border border-white/[0.08] bg-[#0c1017] shadow-2xl shadow-black/45 font-mono text-sm leading-relaxed antialiased">
-      <div className="bg-[#161b22] px-4 py-3 border-b border-[#21262d] text-xs text-muted-foreground flex justify-between items-center select-none">
-        <span className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-full bg-[#ff5f56] border border-[#e0443e]/30 flex-shrink-0" />
-          <span className="w-3 h-3 rounded-full bg-[#ffbd2e] border border-[#dfa224]/30 flex-shrink-0" />
-          <span className="w-3 h-3 rounded-full bg-[#27c93f] border border-[#1aab29]/30 flex-shrink-0" />
-          <span className="ml-3 text-zinc-400 font-mono text-xs font-semibold select-none flex items-center gap-1.5">
-            {filename || (language === 'swift' ? 'main.swift' : `index.${language}`)}
-          </span>
-        </span>
-        <div className="flex items-center gap-3">
-          <span className="px-2 py-0.5 rounded bg-[#21262d] text-[10px] text-zinc-400 font-bold uppercase tracking-widest border border-zinc-700/30">
-            {language}
-          </span>
-          <button 
-            onClick={handleCopy} 
-            className="text-zinc-400 hover:text-white hover:bg-[#21262d] border border-transparent hover:border-zinc-700/50 transition-all text-xs flex items-center gap-1.5 px-2 py-1 rounded cursor-pointer font-sans"
-          >
-            {copied ? (
-              <>
-                <svg className="w-3.5 h-3.5 text-emerald-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                <span className="text-emerald-500 font-semibold">Copied</span>
-              </>
-            ) : (
-              <>
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
-                <span>Copy</span>
-              </>
-            )}
-          </button>
-        </div>
-      </div>
-      <pre className="p-5 overflow-x-auto text-zinc-300 font-mono scrollbar-thin scrollbar-thumb-zinc-800 bg-[#0d1117] leading-relaxed">
+    <div className="relative my-8 rounded-lg border border-zinc-200/50 dark:border-zinc-800/50 bg-[#fafafa] dark:bg-zinc-900/40 p-6 md:p-8 font-mono text-sm leading-relaxed antialiased">
+      <pre className="overflow-x-auto scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-800">
         <code 
           className={`language-${language}`}
           dangerouslySetInnerHTML={{ __html: highlightedCode }}
