@@ -1,6 +1,7 @@
 import React from 'react';
 import { Studio, defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
+import { codeInput } from '@sanity/code-input';
 import { postType } from '../data/sanity-schema';
 
 const config = defineConfig({
@@ -8,7 +9,7 @@ const config = defineConfig({
   dataset: 'production',
   title: 'Srinivas Portfolio Studio',
   basePath: '/studio',
-  plugins: [structureTool()],
+  plugins: [structureTool(), codeInput()],
   schema: {
     types: [postType],
   },

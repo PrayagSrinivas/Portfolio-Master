@@ -80,6 +80,22 @@ export const postType = defineType({
               description: 'Important for accessibility and SEO.'
             }
           ]
+        },
+        {
+          type: 'code',
+          title: 'Code Block',
+          options: {
+            language: 'swift',
+            languageAlternatives: [
+              { title: 'Swift', value: 'swift' },
+              { title: 'TypeScript', value: 'typescript' },
+              { title: 'JavaScript', value: 'javascript' },
+              { title: 'HTML', value: 'html' },
+              { title: 'CSS', value: 'css' },
+              { title: 'Bash', value: 'bash' },
+              { title: 'JSON', value: 'json' }
+            ]
+          }
         }
       ],
       validation: (Rule) => Rule.required(),
