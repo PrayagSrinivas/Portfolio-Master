@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: analytics
+    description: Analytics operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,131 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /articles/{slug}/view:
+    post:
+      operationId: trackArticleView
+      tags: [analytics]
+      summary: Log an article view
+      description: Logs an article view with client details
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrackViewPayload"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                required: [success]
+
+  /articles/{slug}/views:
+    get:
+      operationId: getArticleViews
+      tags: [analytics]
+      summary: Get views for a specific article
+      description: Returns total views for a specific article slug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                required: [count]
+
+  /articles/{slug}/clap:
+    post:
+      operationId: trackArticleClap
+      tags: [analytics]
+      summary: Increment article claps count
+      description: Adds a specified number of claps to an article slug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrackClapPayload"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  totalClaps:
+                    type: integer
+                required: [success, totalClaps]
+
+  /articles/{slug}/claps:
+    get:
+      operationId: getArticleClaps
+      tags: [analytics]
+      summary: Get total claps for a specific article
+      description: Returns aggregate claps count for a specific article slug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                required: [count]
+
+  /analytics/stats:
+    get:
+      operationId: getAnalyticsStats
+      tags: [analytics]
+      summary: Get aggregate analytics stats
+      description: Returns total views, views per article, and breakdowns
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalyticsStats"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +161,62 @@ components:
       required:
         - status
 
+    TrackViewPayload:
+      type: object
+      properties:
+        deviceType:
+          type: string
+        os:
+          type: string
+        userAgent:
+          type: string
+      required:
+        - deviceType
+        - os
+
+    TrackClapPayload:
+      type: object
+      properties:
+        count:
+          type: integer
+      required:
+        - count
+
+    AnalyticsStats:
+      type: object
+      properties:
+        totalViews:
+          type: integer
+        articles:
+          type: array
+          items:
+            type: object
+            properties:
+              slug:
+                type: string
+              views:
+                type: integer
+              claps:
+                type: integer
+            required: [slug, views, claps]
+        devices:
+          type: array
+          items:
+            type: object
+            properties:
+              deviceType:
+                type: string
+              count:
+                type: integer
+            required: [deviceType, count]
+        os:
+          type: array
+          items:
+            type: object
+            properties:
+              os:
+                type: string
+              count:
+                type: integer
+            required: [os, count]
+      required: [totalViews, articles, devices, os]

@@ -5,6 +5,24 @@ import { ArrowUpRight, BookOpen, Loader2 } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { getPosts, urlFor } from '@/lib/sanity';
 
+function calculateReadingTime(blocks: any[]): string {
+  if (!blocks || !Array.isArray(blocks)) return '1 min read';
+  
+  let wordCount = 0;
+  blocks.forEach(block => {
+    if (block._type === 'block' && block.children) {
+      block.children.forEach((child: any) => {
+        if (child.text) {
+          wordCount += child.text.trim().split(/\s+/).filter(Boolean).length;
+        }
+      });
+    }
+  });
+  
+  const minutes = Math.max(1, Math.ceil(wordCount / 200));
+  return `${minutes} min read`;
+}
+
 export function Articles() {
   const { data: articles = [], isLoading, error } = useQuery({
     queryKey: ['posts'],
@@ -20,6 +38,14 @@ export function Articles() {
             <p className="text-muted-foreground">Thoughts on iOS engineering, architecture, and performance.</p>
           </div>
           <div className="flex flex-wrap gap-4 sm:gap-6 items-center">
+            <Link 
+              href="/analytics" 
+              className="group flex items-center gap-1.5 font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              Reader Analytics
+              <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </Link>
+            <span className="hidden sm:inline text-muted-foreground/30 font-mono text-sm">/</span>
             <Link 
               href="/articles" 
               className="group flex items-center gap-1.5 font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -74,7 +100,7 @@ export function Articles() {
                         {article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Draft'}
                       </span>
                       <span className="w-1 h-1 md:w-1.5 md:h-1.5 bg-muted-foreground/30 rounded-full" />
-                      <span>{article.readTime}</span>
+                      <span>{article.readTime || calculateReadingTime(article.body)}</span>
                     </div>
                     
                     <h3 className="text-base sm:text-lg md:text-2xl font-bold group-hover:text-primary transition-colors tracking-tight leading-snug">

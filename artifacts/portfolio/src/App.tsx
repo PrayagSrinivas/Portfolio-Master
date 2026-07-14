@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Resume from './pages/Resume';
 import ArticleDetail from './pages/ArticleDetail';
 import ArticlesPage from './pages/ArticlesPage';
+import AnalyticsDashboard from './pages/AnalyticsDashboard';
 
 const StudioPage = React.lazy(() => import('./pages/StudioPage'));
 
@@ -21,6 +22,7 @@ function Router() {
       <Route path="/resume" component={Resume} />
       <Route path="/articles" component={ArticlesPage} />
       <Route path="/articles/:slug" component={ArticleDetail} />
+      <Route path="/analytics" component={AnalyticsDashboard} />
       <Route path="/studio" nest>
         <Suspense fallback={<div className="h-screen w-screen flex items-center justify-center font-mono text-sm bg-background text-foreground">Loading Studio...</div>}>
           <StudioPage />

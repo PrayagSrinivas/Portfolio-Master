@@ -1,20 +1,23 @@
-// Export your models here. Add one export per file
-// export * from "./posts";
-//
-// Each model/table should ideally be split into different files.
-// Each model/table should define a Drizzle table, insert schema, and types:
-//
-//   import { pgTable, text, serial } from "drizzle-orm/pg-core";
-//   import { createInsertSchema } from "drizzle-zod";
-//   import { z } from "zod/v4";
-//
-//   export const postsTable = pgTable("posts", {
-//     id: serial("id").primaryKey(),
-//     title: text("title").notNull(),
-//   });
-//
-//   export const insertPostSchema = createInsertSchema(postsTable).omit({ id: true });
-//   export type InsertPost = z.infer<typeof insertPostSchema>;
-//   export type Post = typeof postsTable.$inferSelect;
+import { pgTable, text, serial, timestamp, varchar, integer } from "drizzle-orm/pg-core";
 
-export {}
+export const articleViewsTable = pgTable("article_views", {
+  id: serial("id").primaryKey(),
+  slug: varchar("slug", { length: 255 }).notNull(),
+  deviceType: varchar("device_type", { length: 50 }).notNull(), // mobile, tablet, desktop
+  os: varchar("os", { length: 50 }).notNull(),                 // macOS, iOS, Windows, Android, Linux, etc.
+  userAgent: text("user_agent"),
+  viewedAt: timestamp("viewed_at").defaultNow().notNull(),
+});
+
+export const articleClapsTable = pgTable("article_claps", {
+  id: serial("id").primaryKey(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  count: integer("count").default(0).notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export type ArticleView = typeof articleViewsTable.$inferSelect;
+export type InsertArticleView = typeof articleViewsTable.$inferInsert;
+
+export type ArticleClap = typeof articleClapsTable.$inferSelect;
+export type InsertArticleClap = typeof articleClapsTable.$inferInsert;
