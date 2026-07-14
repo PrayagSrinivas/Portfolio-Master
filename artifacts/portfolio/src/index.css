@@ -402,7 +402,74 @@ pre[class*="language-"] {
   border: none !important;
 }
 
-code[class*="language-"] {
-  color: #e3e3e3 !important;
+/* Premium Code Block Syntax Highlighting Theme (One Dark Style) */
+.prose pre code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Menlo', Monaco, Consolas, monospace !important;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #abb2bf !important;
   text-shadow: none !important;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Menlo', Monaco, Consolas, monospace !important;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #5c6370 !important;
+  font-style: italic !important;
+}
+
+.token.punctuation {
+  color: #abb2bf !important;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #d19a66 !important;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #98c379 !important;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #56b6c2 !important;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #c678dd !important;
+  font-weight: 600 !important;
+}
+
+.token.function {
+  color: #61afef !important;
+}
+
+.token.class-name {
+  color: #e5c07b !important; /* Soft Gold/Yellow for Types, Structs, Classes */
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #e06c75 !important;
 }

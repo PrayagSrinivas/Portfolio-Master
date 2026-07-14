@@ -32,7 +32,7 @@ const CodeBlock = ({ value }: { value: any }) => {
 
   if (!value) return null;
   const codeText = value.code || '';
-  const language = value.language || 'javascript';
+  const language = value.language || 'swift';
   const filename = value.filename;
 
   const handleCopy = () => {
@@ -43,31 +43,35 @@ const CodeBlock = ({ value }: { value: any }) => {
 
   let highlightedCode = codeText;
   try {
-    const grammar = Prism.languages[language] || Prism.languages.javascript;
+    const grammar = Prism.languages[language] || Prism.languages.swift || Prism.languages.javascript;
     highlightedCode = Prism.highlight(codeText, grammar, language);
   } catch (err) {
     console.warn("Prism failed to highlight language:", language, err);
   }
 
   return (
-    <div className="relative my-8 rounded-lg overflow-hidden border border-border/40 bg-black/60 shadow-lg font-mono text-sm leading-relaxed">
-      <div className="bg-muted/15 px-4 py-2.5 border-b border-border/30 text-xs text-muted-foreground flex justify-between items-center select-none">
+    <div className="relative my-8 rounded-xl overflow-hidden border border-white/[0.08] bg-[#0c1017] shadow-2xl shadow-black/45 font-mono text-sm leading-relaxed antialiased">
+      <div className="bg-[#161b22] px-4 py-3 border-b border-[#21262d] text-xs text-muted-foreground flex justify-between items-center select-none">
         <span className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-          <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-          <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-          {filename && <span className="ml-2 text-foreground/80 font-semibold">{filename}</span>}
+          <span className="w-3 h-3 rounded-full bg-[#ff5f56] border border-[#e0443e]/30 flex-shrink-0" />
+          <span className="w-3 h-3 rounded-full bg-[#ffbd2e] border border-[#dfa224]/30 flex-shrink-0" />
+          <span className="w-3 h-3 rounded-full bg-[#27c93f] border border-[#1aab29]/30 flex-shrink-0" />
+          <span className="ml-3 text-zinc-400 font-mono text-xs font-semibold select-none flex items-center gap-1.5">
+            {filename || (language === 'swift' ? 'main.swift' : `index.${language}`)}
+          </span>
         </span>
-        <div className="flex items-center gap-4">
-          <span className="uppercase text-[10px] tracking-widest font-bold text-primary/70">{language}</span>
+        <div className="flex items-center gap-3">
+          <span className="px-2 py-0.5 rounded bg-[#21262d] text-[10px] text-zinc-400 font-bold uppercase tracking-widest border border-zinc-700/30">
+            {language}
+          </span>
           <button 
             onClick={handleCopy} 
-            className="hover:text-primary transition-colors text-[11px] flex items-center gap-1 cursor-pointer font-sans"
+            className="text-zinc-400 hover:text-white hover:bg-[#21262d] border border-transparent hover:border-zinc-700/50 transition-all text-xs flex items-center gap-1.5 px-2 py-1 rounded cursor-pointer font-sans"
           >
             {copied ? (
               <>
-                <svg className="w-3.5 h-3.5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                <span>Copied!</span>
+                <svg className="w-3.5 h-3.5 text-emerald-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                <span className="text-emerald-500 font-semibold">Copied</span>
               </>
             ) : (
               <>
@@ -78,7 +82,7 @@ const CodeBlock = ({ value }: { value: any }) => {
           </button>
         </div>
       </div>
-      <pre className="p-4 overflow-x-auto text-foreground/90 font-mono scrollbar-thin scrollbar-thumb-border">
+      <pre className="p-5 overflow-x-auto text-zinc-300 font-mono scrollbar-thin scrollbar-thumb-zinc-800 bg-[#0d1117] leading-relaxed">
         <code 
           className={`language-${language}`}
           dangerouslySetInnerHTML={{ __html: highlightedCode }}
