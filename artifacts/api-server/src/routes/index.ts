@@ -1,6 +1,6 @@
 import { Router, type IRouter } from "express";
-import healthRouter from "./health";
-import analyticsRouter from "./analytics";
+import healthRouter from "./health.js";
+import analyticsRouter from "./analytics.js";
 
 const router: IRouter = Router();
 
