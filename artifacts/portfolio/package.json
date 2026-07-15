@@ -80,6 +80,8 @@
     "@sanity/client": "^7.23.0",
     "@sanity/code-input": "^7.2.7",
     "@sanity/image-url": "^2.1.1",
+    "@workspace/api-server": "workspace:*",
+    "@workspace/db": "workspace:*",
     "prismjs": "^1.30.0",
     "sanity": "^6.4.0",
     "styled-components": "^6.4.3"

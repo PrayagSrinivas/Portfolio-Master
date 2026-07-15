@@ -341,6 +341,12 @@ importers:
       '@sanity/image-url':
         specifier: ^2.1.1
         version: 2.1.1
+      '@workspace/api-server':
+        specifier: workspace:*
+        version: link:../api-server
+      '@workspace/db':
+        specifier: workspace:*
+        version: link:../../lib/db
       prismjs:
         specifier: ^1.30.0
         version: 1.30.0
