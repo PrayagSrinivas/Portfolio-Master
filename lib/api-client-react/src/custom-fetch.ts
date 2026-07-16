@@ -17,6 +17,26 @@ const DEFAULT_JSON_ACCEPT = "application/json, application/problem+json";
 
 let _baseUrl: string | null = null;
 let _authTokenGetter: AuthTokenGetter | null = null;
+let _deviceId: string | null = null;
+
+function getDeviceId(): string | null {
+  if (_deviceId) return _deviceId;
+  if (typeof window !== "undefined" && window.localStorage) {
+    try {
+      let stored = window.localStorage.getItem("portfolio_device_id");
+      if (!stored) {
+        stored = typeof crypto !== "undefined" && crypto.randomUUID
+          ? crypto.randomUUID()
+          : Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        window.localStorage.setItem("portfolio_device_id", stored);
+      }
+      _deviceId = stored;
+    } catch (e) {
+      console.warn("localStorage is not available for device id:", e);
+    }
+  }
+  return _deviceId;
+}
 
 /**
  * Set a base URL that is prepended to every relative request URL
@@ -336,6 +356,11 @@ export async function customFetch<T = unknown>(
   }
 
   const headers = mergeHeaders(isRequest(input) ? input.headers : undefined, headersInit);
+
+  const deviceId = getDeviceId();
+  if (deviceId) {
+    headers.set("x-device-id", deviceId);
+  }
 
   if (
     typeof init.body === "string" &&

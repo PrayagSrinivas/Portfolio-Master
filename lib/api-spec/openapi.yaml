@@ -111,7 +111,9 @@ paths:
                     type: boolean
                   totalClaps:
                     type: integer
-                required: [success, totalClaps]
+                  userClaps:
+                    type: integer
+                required: [success, totalClaps, userClaps]
 
   /articles/{slug}/claps:
     get:
@@ -135,7 +137,9 @@ paths:
                 properties:
                   count:
                     type: integer
-                required: [count]
+                  userClaps:
+                    type: integer
+                required: [count, userClaps]
 
   /analytics/stats:
     get:

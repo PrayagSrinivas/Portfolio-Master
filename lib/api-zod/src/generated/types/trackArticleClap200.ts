@@ -9,4 +9,5 @@
 export type TrackArticleClap200 = {
   success: boolean;
   totalClaps: number;
+  userClaps: number;
 };

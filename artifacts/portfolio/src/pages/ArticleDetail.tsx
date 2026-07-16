@@ -179,6 +179,14 @@ export default function ArticleDetail({ params }: ArticleDetailProps) {
     }
   }, [params.slug]);
 
+  // Synchronize local user claps with the server database value
+  useEffect(() => {
+    if (clapsData && typeof clapsData.userClaps === 'number') {
+      setLocalUserClaps(clapsData.userClaps);
+      localStorage.setItem(`claps_${params.slug}`, clapsData.userClaps.toString());
+    }
+  }, [clapsData, params.slug]);
+
   // Scroll to top on page load
   useEffect(() => {
     window.scrollTo(0, 0);

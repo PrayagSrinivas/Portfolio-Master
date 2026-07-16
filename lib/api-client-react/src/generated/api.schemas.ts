@@ -53,9 +53,11 @@ export type GetArticleViews200 = {
 export type TrackArticleClap200 = {
   success: boolean;
   totalClaps: number;
+  userClaps: number;
 };
 
 export type GetArticleClaps200 = {
   count: number;
+  userClaps: number;
 };
 

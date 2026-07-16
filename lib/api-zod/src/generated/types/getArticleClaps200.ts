@@ -8,4 +8,5 @@
 
 export type GetArticleClaps200 = {
   count: number;
+  userClaps: number;
 };

@@ -63,7 +63,8 @@ export const TrackArticleClapBody = zod.object({
 
 export const TrackArticleClapResponse = zod.object({
   "success": zod.boolean(),
-  "totalClaps": zod.number()
+  "totalClaps": zod.number(),
+  "userClaps": zod.number()
 })
 
 
@@ -76,7 +77,8 @@ export const GetArticleClapsParams = zod.object({
 })
 
 export const GetArticleClapsResponse = zod.object({
-  "count": zod.number()
+  "count": zod.number(),
+  "userClaps": zod.number()
 })
 
 
