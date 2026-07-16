@@ -1,9 +1,12 @@
-import { kv } from "@vercel/kv";
+import { createClient } from "@vercel/kv";
 
-const isKvConfigured = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+const url = process.env.KV_REST_API_URL || process.env.srinivasprayag_KV_REST_API_URL;
+const token = process.env.KV_REST_API_TOKEN || process.env.srinivasprayag_KV_REST_API_TOKEN;
+
+const isKvConfigured = !!(url && token);
 
 // Cast kv to any to bypass compilation type resolution issues of its parent class in Vercel's typescript environment
-const client: any = kv;
+const client: any = isKvConfigured ? createClient({ url, token }) : null;
 
 // Memory fallback store for local development when Vercel KV environment variables are not set
 const memoryStore = {
