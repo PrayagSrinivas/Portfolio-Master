@@ -341,12 +341,33 @@ importers:
       '@sanity/image-url':
         specifier: ^2.1.1
         version: 2.1.1
+      '@vercel/kv':
+        specifier: ^3.0.0
+        version: 3.0.0
       '@workspace/api-server':
         specifier: workspace:*
         version: link:../api-server
       '@workspace/db':
         specifier: workspace:*
         version: link:../../lib/db
+      cookie-parser:
+        specifier: ^1.4.7
+        version: 1.4.7
+      cors:
+        specifier: ^2.8.6
+        version: 2.8.6
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.6.1
+      express:
+        specifier: ^5.2.1
+        version: 5.2.1
+      pino:
+        specifier: ^9.14.0
+        version: 9.14.0
+      pino-http:
+        specifier: ^10.5.0
+        version: 10.5.0
       prismjs:
         specifier: ^1.30.0
         version: 1.30.0
