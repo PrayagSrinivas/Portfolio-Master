@@ -2,6 +2,9 @@ import { kv } from "@vercel/kv";
 
 const isKvConfigured = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
 
+// Cast kv to any to bypass compilation type resolution issues of its parent class in Vercel's typescript environment
+const client: any = kv;
+
 // Memory fallback store for local development when Vercel KV environment variables are not set
 const memoryStore = {
   views: {} as Record<string, number>, // slug -> count
@@ -19,18 +22,18 @@ export const analytics = {
     if (isKvConfigured) {
       try {
         // 1. Raw views
-        await kv.incr(`article:${slug}:views`);
-        await kv.incr("analytics:total_views");
+        await client.incr(`article:${slug}:views`);
+        await client.incr("analytics:total_views");
         
         // 2. Unique views (add to set of viewed devices)
         if (deviceId) {
-          await kv.sadd(`article:${slug}:viewed_devices`, deviceId);
+          await client.sadd(`article:${slug}:viewed_devices`, deviceId);
         }
         
         // 3. Metadata for aggregates
-        await kv.sadd("article:slugs", slug);
-        await kv.hincrby("analytics:devices", deviceType, 1);
-        await kv.hincrby("analytics:os", os, 1);
+        await client.sadd("article:slugs", slug);
+        await client.hincrby("analytics:devices", deviceType, 1);
+        await client.hincrby("analytics:os", os, 1);
       } catch (err) {
         console.error("Vercel KV Error tracking view:", err);
       }
@@ -52,7 +55,7 @@ export const analytics = {
   async getViewCount(slug: string): Promise<number> {
     if (isKvConfigured) {
       try {
-        return (await kv.get<number>(`article:${slug}:views`)) || 0;
+        return (await client.get(`article:${slug}:views`)) || 0;
       } catch (err) {
         console.error("Vercel KV Error fetching views:", err);
         return 0;
@@ -65,16 +68,16 @@ export const analytics = {
   async trackClap(slug: string, deviceId: string, incrementAmount: number): Promise<{ userClaps: number; totalClaps: number }> {
     if (isKvConfigured) {
       try {
-        const currentClaps = Number(await kv.hget(`article:${slug}:claps_by_device`, deviceId) || 0);
+        const currentClaps = Number(await client.hget(`article:${slug}:claps_by_device`, deviceId) || 0);
         const clapsToAdd = Math.min(incrementAmount, 50 - currentClaps);
         
         if (clapsToAdd > 0) {
-          await kv.hincrby(`article:${slug}:claps_by_device`, deviceId, clapsToAdd);
-          await kv.hincrby("article:claps", slug, clapsToAdd);
+          await client.hincrby(`article:${slug}:claps_by_device`, deviceId, clapsToAdd);
+          await client.hincrby("article:claps", slug, clapsToAdd);
         }
         
         const newUserClaps = currentClaps + clapsToAdd;
-        const totalClaps = Number(await kv.hget("article:claps", slug) || 0);
+        const totalClaps = Number(await client.hget("article:claps", slug) || 0);
         
         return { userClaps: newUserClaps, totalClaps };
       } catch (err) {
@@ -101,10 +104,10 @@ export const analytics = {
   async getClapCounts(slug: string, deviceId?: string): Promise<{ userClaps: number; totalClaps: number }> {
     if (isKvConfigured) {
       try {
-        const totalClaps = Number(await kv.hget("article:claps", slug) || 0);
+        const totalClaps = Number(await client.hget("article:claps", slug) || 0);
         let userClaps = 0;
         if (deviceId) {
-          userClaps = Number(await kv.hget(`article:${slug}:claps_by_device`, deviceId) || 0);
+          userClaps = Number(await client.hget(`article:${slug}:claps_by_device`, deviceId) || 0);
         }
         return { userClaps, totalClaps };
       } catch (err) {
@@ -126,19 +129,19 @@ export const analytics = {
   }> {
     if (isKvConfigured) {
       try {
-        const totalViews = Number(await kv.get("analytics:total_views") || 0);
-        const slugs = await kv.smembers("article:slugs");
+        const totalViews = Number(await client.get("analytics:total_views") || 0);
+        const slugs = (await client.smembers("article:slugs") as string[]) || [];
         
         const articles = await Promise.all(
           slugs.map(async (slug) => {
-            const views = Number(await kv.get(`article:${slug}:views`) || 0);
-            const claps = Number(await kv.hget("article:claps", slug) || 0);
+            const views = Number(await client.get(`article:${slug}:views`) || 0);
+            const claps = Number(await client.hget("article:claps", slug) || 0);
             return { slug, views, claps };
           })
         );
         
-        const devicesObj = (await kv.hgetall<Record<string, number>>("analytics:devices")) || {};
-        const osObj = (await kv.hgetall<Record<string, number>>("analytics:os")) || {};
+        const devicesObj = (await client.hgetall("analytics:devices")) || {};
+        const osObj = (await client.hgetall("analytics:os")) || {};
         
         const devices = Object.entries(devicesObj).map(([deviceType, count]) => ({
           deviceType,
